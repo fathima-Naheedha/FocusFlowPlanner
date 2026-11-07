@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10192b" />
+  <meta name="description" content="FocusFlow: a simple daily task planner with persistent tasks, validation, and progress tracking." />
+  <title>FocusFlow — Daily Planner</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span>Focus<span class="brand-accent">Flow</span><small>Make today count.</small></span></div>
+      <div class="nav-title">WORKSPACE</div>
+      <nav>
+        <a href="#dashboard" class="nav-link active" aria-current="page"><span aria-hidden="true">▦</span> Dashboard</a>
+        <a href="#tasks" class="nav-link"><span aria-hidden="true">✓</span> My tasks</a>
+      </nav>
+      <div class="sidebar-note"><span class="note-icon" aria-hidden="true">✧</span><strong>Small steps. Big wins.</strong><p>Add a task, stay consistent, and celebrate the progress you make.</p></div>
+      <div class="sidebar-footer">FOCUSFLOW • PERSONAL PLANNER</div>
+    </aside>
+
+    <main id="dashboard" class="main-content">
+      <header class="topbar"><span class="topbar-label">My workspace <span class="topbar-slash">/</span> Dashboard</span><span class="today-label" id="todayLabel"></span></header>
+      <section class="welcome" aria-labelledby="welcomeTitle">
+        <div><span class="eyebrow">YOUR DAILY SPACE</span><h1 id="welcomeTitle">One task at a time<span class="dot">.</span></h1><p>Organize what's important and keep moving forward.</p></div>
+        <button id="headerAddBtn" class="primary-button" type="button"><span aria-hidden="true">＋</span> New task</button>
+      </section>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-icon lavender" aria-hidden="true">▤</span></div><strong id="totalCount">0</strong><small>Everything on your list</small></article>
+        <article class="stat-card"><div class="stat-top"><span>In progress</span><span class="stat-icon peach" aria-hidden="true">◷</span></div><strong id="activeCount">0</strong><small>Still to be completed</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon mint" aria-hidden="true">✓</span></div><strong id="doneCount">0</strong><small>Look how far you've come!</small></article>
+      </section>
+
+      <section id="tasks" class="tasks-panel" aria-labelledby="tasksHeading">
+        <div class="section-header"><div><span class="eyebrow">STAY ON TRACK</span><h2 id="tasksHeading">My tasks <span id="taskHeadingCount" class="heading-count">0</span></h2></div><button type="button" id="sectionAddBtn" class="outline-button"><span aria-hidden="true">＋</span> Add task</button></div>
+        <div class="task-toolbar" role="group" aria-label="Filter tasks"><button type="button" class="filter active" data-filter="all" aria-pressed="true">All tasks</button><button type="button" class="filter" data-filter="active" aria-pressed="false">To do</button><button type="button" class="filter" data-filter="completed" aria-pressed="false">Completed</button></div>
+        <div id="taskList" class="task-list" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state" hidden><div class="empty-icon" aria-hidden="true">✎</div><h3 id="emptyTitle">A fresh start!</h3><p id="emptyText">You have no tasks yet. Add your first one and get going.</p><button type="button" id="emptyAddBtn" class="primary-button">＋ Create first task</button></div>
+      </section>
+      <footer class="main-footer">Built for focused days ✦ Data is saved in this browser.</footer>
+    </main>
+  </div>
+
+  <dialog id="taskDialog" aria-labelledby="dialogTitle">
+    <form id="taskForm" novalidate>
+      <div class="dialog-header"><div><span class="eyebrow">LET'S MAKE PROGRESS</span><h2 id="dialogTitle">Create a task</h2></div><button type="button" id="closeDialogBtn" class="icon-button" aria-label="Close form">✕</button></div>
+      <div class="form-field"><label for="taskTitle">Task title <span aria-hidden="true">*</span></label><input id="taskTitle" name="taskTitle" maxlength="80" autocomplete="off" placeholder="e.g. Review lecture notes" aria-describedby="titleError" required /><span class="field-error" id="titleError" role="alert"></span></div>
+      <div class="form-field"><label for="taskDescription">Description <span class="optional">(optional)</span></label><textarea id="taskDescription" name="taskDescription" rows="3" maxlength="300" placeholder="A few details about your task..."></textarea><span class="field-error" id="descriptionError" role="alert"></span></div>
+      <div class="form-field"><label for="taskDate">Due date <span class="optional">(optional)</span></label><input id="taskDate" name="taskDate" type="date" /></div>
+      <div class="dialog-actions"><button type="button" class="cancel-button" id="cancelDialogBtn">Cancel</button><button class="primary-button" type="submit">Save task</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
